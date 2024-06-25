@@ -1,6 +1,15 @@
-<script setup>
+<script>
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+
+import io from 'socket.io-client';
+const socket = io('http://localhost:5173');
+
+socket.on('connected',(arg) => {console.log(arg)})
+
+export default {
+  name:'App'
+};
 </script>
 
 <template>
