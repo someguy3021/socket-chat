@@ -1,11 +1,7 @@
 <script>
 import { ref } from 'vue'
 import io from 'socket.io-client';
-const socket = io('http://localhost:5173', {
-  auth:{
-    token: 'secret'
-  }
-});
+const socket = io('http://localhost:5173');
 
 socket.on('message', (data)=>{
   console.log(data);
