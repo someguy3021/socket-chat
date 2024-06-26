@@ -20,17 +20,23 @@ app.listen(3000, async () => {
 });
 
 // Запуск сокет-сервера
-io.on('connection', (socket) => {
-    console.log(123);
-    socket.emit('connected',{
-        message: 'Connection is fine!'
-    })
-
-    socket.on('message', (arg) => {
-        console.log(arg);
-    })
-
-    socket.on('disconnect', (reason) => {console.log(reason)})
+io.use((socket, next) => {
+    const token = socket.handshake.auth.token;
+    if (token === 'secret') {
+        next();
+    } else {
+        const err = new Error("not authorized");
+        err.data = { content: "Please retry later"};
+        next(err);
+    }
 });
+
+io.on('connection', (socket) => {
+    socket.on('message', (data) => {
+        socket.join('room:' + data.room_id);
+        io.to('room:' + data.room_id).emit('message', data.message)
+    })
+});
+
 
 httpServer.listen(3001);
