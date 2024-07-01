@@ -1,4 +1,5 @@
 const { Chat, Room } = require('../models/init');
+const { where } = require('../DB');
 
 class ChatService {
     async getRooms() {

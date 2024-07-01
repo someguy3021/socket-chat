@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     createRoom() {
-      socket.emit("createroom", {
+      socket.emit("create_room", {
         name: this.creating_room,
       });
       this.creating_room = null;
