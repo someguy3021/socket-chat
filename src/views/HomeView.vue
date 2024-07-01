@@ -1,7 +1,7 @@
 <script>
 import { ref } from "vue";
 import io from "socket.io-client";
-const socket = io("http://localhost:5173");
+const socket = io("http://localhost:3001");
 
 socket.on("connect_error", (data) => {
   console.error(data);
